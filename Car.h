@@ -284,6 +284,17 @@ struct Car {
 
         return *this;
     }
+
+    void Print() {
+        string car_electric;
+        if(stoi(charge120) > 0 || stoi(charge240) > 0) {
+            car_electric = "electric";
+        } else {
+            car_electric = "gas";
+        }
+
+        cout << year + " " + make + " " + model + ", " + ", " << city08 << ", " << VClass << ", " << car_electric << ", " << drive << endl;
+    }
 };
 
 
