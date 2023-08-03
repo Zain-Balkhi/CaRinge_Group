@@ -1,10 +1,12 @@
-//Main File
-//Taran Jehan Syed
-//Should we have an acronym , like TJS, or SJT, or STJ.
-//Hmmmm???
+//
+// Created by Zain Balkhi on 8/2/23.
+//
+
+#ifndef CARINGE_CAR_H
+#define CARINGE_CAR_H
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -12,570 +14,288 @@
 #include <random>
 #include <cmath>
 #include <map>
-#include <set>
 #include <sstream>
 #include <ctime>
 #include <ratio>
 #include <chrono>
-#include "Car.h"
 
-using std::ofstream;
-using std::ifstream;
-using std::fstream;
 using namespace std;
 
-// https://stackoverflow.com/questions/1120140/how-can-i-read-and-parse-csv-files-in-c
-// Function to split a line based on commas, accounting for quoted fields
-vector<string> split_CSV_line(const string& line) {
-    vector<string> fields;
-    size_t pos = 0;
-    bool inQuote = false;
-    string field;
+struct Car {
+    std::string barrels08;
+    std::string barrelsA08;
+    std::string charge120;
+    std::string charge240;
+    std::string city08;
+    std::string city08U;
+    std::string cityA08;
+    std::string cityA08U;
+    std::string cityCD;
+    std::string cityE;
+    std::string cityUF;
+    std::string co2;
+    std::string co2A;
+    std::string co2TailpipeAGpm;
+    std::string co2TailpipeGpm;
+    std::string comb08;
+    std::string comb08U;
+    std::string combA08;
+    std::string combA08U;
+    std::string combE;
+    std::string combinedCD;
+    std::string combinedUF;
+    std::string cylinders;
+    std::string displ;
+    std::string drive;
+    std::string engId;
+    std::string eng_dscr;
+    std::string feScore;
+    std::string fuelCost08;
+    std::string fuelCostA08;
+    std::string fuelType;
+    std::string fuelType1;
+    std::string ghgScore;
+    std::string ghgScoreA;
+    std::string highway08;
+    std::string highway08U;
+    std::string highwayA08;
+    std::string highwayA08U;
+    std::string highwayCD;
+    std::string highwayE;
+    std::string highwayUF;
+    std::string hlv;
+    std::string hpv;
+    std::string id;
+    std::string lv2;
+    std::string lv4;
+    std::string make;
+    std::string model;
+    std::string mpgData;
+    std::string phevBlended;
+    std::string pv2;
+    std::string pv4;
+    std::string range;
+    std::string rangeCity;
+    std::string rangeCityA;
+    std::string rangeHwy;
+    std::string rangeHwyA;
+    std::string trany;
+    std::string UCity;
+    std::string UCityA;
+    std::string UHighway;
+    std::string UHighwayA;
+    std::string VClass;
+    std::string year;
+    std::string youSaveSpend;
+    std::string baseModel;
+    std::string guzzler;
+    std::string trans_dscr;
+    std::string tCharger;
+    std::string sCharger;
+    std::string atvType;
+    std::string fuelType2;
+    std::string rangeA;
+    std::string evMotor;
+    std::string mfrCode;
+    std::string c240Dscr;
+    std::string charge240b;
+    std::string c240bDscr;
+    std::string createdOn;
+    std::string modifiedOn;
+    std::string startStop;
+    std::string phevCity;
+    std::string phevHwy;
+    std::string phevComb;
 
-    while (pos < line.length()) {
-        char ch = line[pos];
+    // Default constructor
+    Car(){}
 
-        if (ch == '"') {
-            inQuote = !inQuote;
-        } else if (ch == ',' && !inQuote) {
-            fields.push_back(field);
-            field.clear();
+    // Parameterized constructor
+    Car(const std::string& b08, const std::string& bA08, const std::string& c120, const std::string& c240,
+        const std::string& c08, const std::string& c08U, const std::string& cA08, const std::string& cA08U,
+        const std::string& cCD, const std::string& cE, const std::string& cUF, const std::string& co2Val,
+        const std::string& co2AVal, const std::string& co2Tagpm, const std::string& co2Tgpm,
+        const std::string& comb08Val, const std::string& comb08UVal, const std::string& combA08Val,
+        const std::string& combA08UVal, const std::string& combEVal, const std::string& combinedCDVal,
+        const std::string& combinedUFVal, const std::string& cylindersVal, const std::string& displVal,
+        const std::string& driveVal, const std::string& engIdVal, const std::string& eng_dscrVal,
+        const std::string& feScoreVal, const std::string& fuelCost08Val, const std::string& fuelCostA08Val,
+        const std::string& fuelTypeVal, const std::string& fuelType1Val, const std::string& ghgScoreVal,
+        const std::string& ghgScoreAVal, const std::string& highway08Val, const std::string& highway08UVal,
+        const std::string& highwayA08Val, const std::string& highwayA08UVal, const std::string& highwayCDVal,
+        const std::string& highwayEVal, const std::string& highwayUFVal, const std::string& hlvVal,
+        const std::string& hpvVal, const std::string& idVal, const std::string& lv2Val, const std::string& lv4Val,
+        const std::string& makeVal, const std::string& modelVal, const std::string& mpgDataVal,
+        const std::string& phevBlendedVal, const std::string& pv2Val, const std::string& pv4Val,
+        const std::string& rangeVal, const std::string& rangeCityVal, const std::string& rangeCityAVal,
+        const std::string& rangeHwyVal, const std::string& rangeHwyAVal, const std::string& tranyVal,
+        const std::string& UCityVal, const std::string& UCityAVal, const std::string& UHighwayVal,
+        const std::string& UHighwayAVal, const std::string& VClassVal, const std::string& yearVal,
+        const std::string& youSaveSpendVal, const std::string& baseModelVal, const std::string& guzzlerVal,
+        const std::string& trans_dscrVal, const std::string& tChargerVal, const std::string& sChargerVal,
+        const std::string& atvTypeVal, const std::string& fuelType2Val, const std::string& rangeAVal,
+        const std::string& evMotorVal, const std::string& mfrCodeVal, const std::string& c240DscrVal,
+        const std::string& charge240bVal, const std::string& c240bDscrVal, const std::string& createdOnVal,
+        const std::string& modifiedOnVal, const std::string& startStopVal, const std::string& phevCityVal,
+        const std::string& phevHwyVal, const std::string& phevCombVal)
+            : barrels08(b08), barrelsA08(bA08), charge120(c120), charge240(c240), city08(c08), city08U(c08U),
+              cityA08(cA08), cityA08U(cA08U), cityCD(cCD), cityE(cE), cityUF(cUF), co2(co2Val), co2A(co2AVal),
+              co2TailpipeAGpm(co2Tagpm), co2TailpipeGpm(co2Tgpm), comb08(comb08Val), comb08U(comb08UVal),
+              combA08(combA08Val), combA08U(combA08UVal), combE(combEVal), combinedCD(combinedCDVal),
+              combinedUF(combinedUFVal), cylinders(cylindersVal), displ(displVal), drive(driveVal),
+              engId(engIdVal), eng_dscr(eng_dscrVal), feScore(feScoreVal), fuelCost08(fuelCost08Val),
+              fuelCostA08(fuelCostA08Val), fuelType(fuelTypeVal), fuelType1(fuelType1Val), ghgScore(ghgScoreVal),
+              ghgScoreA(ghgScoreAVal), highway08(highway08Val), highway08U(highway08UVal),
+              highwayA08(highwayA08Val), highwayA08U(highwayA08UVal), highwayCD(highwayCDVal),
+              highwayE(highwayEVal), highwayUF(highwayUFVal), hlv(hlvVal), hpv(hpvVal), id(idVal),
+              lv2(lv2Val), lv4(lv4Val), make(makeVal), model(modelVal), mpgData(mpgDataVal),
+              phevBlended(phevBlendedVal), pv2(pv2Val), pv4(pv4Val), range(rangeVal),
+              rangeCity(rangeCityVal), rangeCityA(rangeCityAVal), rangeHwy(rangeHwyVal),
+              rangeHwyA(rangeHwyAVal), trany(tranyVal), UCity(UCityVal), UCityA(UCityAVal),
+              UHighway(UHighwayVal), UHighwayA(UHighwayAVal), VClass(VClassVal), year(yearVal),
+              youSaveSpend(youSaveSpendVal), baseModel(baseModelVal), guzzler(guzzlerVal),
+              trans_dscr(trans_dscrVal), tCharger(tChargerVal), sCharger(sChargerVal), atvType(atvTypeVal),
+              fuelType2(fuelType2Val), rangeA(rangeAVal), evMotor(evMotorVal), mfrCode(mfrCodeVal),
+              c240Dscr(c240DscrVal), charge240b(charge240bVal), c240bDscr(c240bDscrVal),
+              createdOn(createdOnVal), modifiedOn(modifiedOnVal), startStop(startStopVal),
+              phevCity(phevCityVal), phevHwy(phevHwyVal), phevComb(phevCombVal) {
+    }
+
+    // Copy constructor
+    Car(const Car& other)
+            : barrels08(other.barrels08), barrelsA08(other.barrelsA08), charge120(other.charge120), charge240(other.charge240),
+              city08(other.city08), city08U(other.city08U), cityA08(other.cityA08), cityA08U(other.cityA08U),
+              cityCD(other.cityCD), cityE(other.cityE), cityUF(other.cityUF), co2(other.co2), co2A(other.co2A),
+              co2TailpipeAGpm(other.co2TailpipeAGpm), co2TailpipeGpm(other.co2TailpipeGpm),
+              comb08(other.comb08), comb08U(other.comb08U), combA08(other.combA08), combA08U(other.combA08U),
+              combE(other.combE), combinedCD(other.combinedCD), combinedUF(other.combinedUF),
+              cylinders(other.cylinders), displ(other.displ), drive(other.drive),
+              engId(other.engId), eng_dscr(other.eng_dscr), feScore(other.feScore), fuelCost08(other.fuelCost08),
+              fuelCostA08(other.fuelCostA08), fuelType(other.fuelType), fuelType1(other.fuelType1),
+              ghgScore(other.ghgScore), ghgScoreA(other.ghgScoreA), highway08(other.highway08),
+              highway08U(other.highway08U), highwayA08(other.highwayA08), highwayA08U(other.highwayA08U),
+              highwayCD(other.highwayCD), highwayE(other.highwayE), highwayUF(other.highwayUF),
+              hlv(other.hlv), hpv(other.hpv), id(other.id), lv2(other.lv2), lv4(other.lv4),
+              make(other.make), model(other.model), mpgData(other.mpgData),
+              phevBlended(other.phevBlended), pv2(other.pv2), pv4(other.pv4),
+              range(other.range), rangeCity(other.rangeCity), rangeCityA(other.rangeCityA),
+              rangeHwy(other.rangeHwy), rangeHwyA(other.rangeHwyA), trany(other.trany),
+              UCity(other.UCity), UCityA(other.UCityA), UHighway(other.UHighway),
+              UHighwayA(other.UHighwayA), VClass(other.VClass), year(other.year),
+              youSaveSpend(other.youSaveSpend), baseModel(other.baseModel), guzzler(other.guzzler),
+              trans_dscr(other.trans_dscr), tCharger(other.tCharger), sCharger(other.sCharger),
+              atvType(other.atvType), fuelType2(other.fuelType2), rangeA(other.rangeA),
+              evMotor(other.evMotor), mfrCode(other.mfrCode), c240Dscr(other.c240Dscr),
+              charge240b(other.charge240b), c240bDscr(other.c240bDscr),
+              createdOn(other.createdOn), modifiedOn(other.modifiedOn), startStop(other.startStop),
+              phevCity(other.phevCity), phevHwy(other.phevHwy), phevComb(other.phevComb) {
+    }
+
+    // Copy assignment operator
+    Car& operator=(const Car& other) {
+        if (this == &other) {
+            return *this; // Check for self-assignment
+        }
+
+        barrels08 = other.barrels08;
+        barrelsA08 = other.barrelsA08;
+        charge120 = other.charge120;
+        charge240 = other.charge240;
+        city08 = other.city08;
+        city08U = other.city08U;
+        cityA08 = other.cityA08;
+        cityA08U = other.cityA08U;
+        cityCD = other.cityCD;
+        cityE = other.cityE;
+        cityUF = other.cityUF;
+        co2 = other.co2;
+        co2A = other.co2A;
+        co2TailpipeAGpm = other.co2TailpipeAGpm;
+        co2TailpipeGpm = other.co2TailpipeGpm;
+        comb08 = other.comb08;
+        comb08U = other.comb08U;
+        combA08 = other.combA08;
+        combA08U = other.combA08U;
+        combE = other.combE;
+        combinedCD = other.combinedCD;
+        combinedUF = other.combinedUF;
+        cylinders = other.cylinders;
+        displ = other.displ;
+        drive = other.drive;
+        engId = other.engId;
+        eng_dscr = other.eng_dscr;
+        feScore = other.feScore;
+        fuelCost08 = other.fuelCost08;
+        fuelCostA08 = other.fuelCostA08;
+        fuelType = other.fuelType;
+        fuelType1 = other.fuelType1;
+        ghgScore = other.ghgScore;
+        ghgScoreA = other.ghgScoreA;
+        highway08 = other.highway08;
+        highway08U = other.highway08U;
+        highwayA08 = other.highwayA08;
+        highwayA08U = other.highwayA08U;
+        highwayCD = other.highwayCD;
+        highwayE = other.highwayE;
+        highwayUF = other.highwayUF;
+        hlv = other.hlv;
+        hpv = other.hpv;
+        id = other.id;
+        lv2 = other.lv2;
+        lv4 = other.lv4;
+        make = other.make;
+        model = other.model;
+        mpgData = other.mpgData;
+        phevBlended = other.phevBlended;
+        pv2 = other.pv2;
+        pv4 = other.pv4;
+        range = other.range;
+        rangeCity = other.rangeCity;
+        rangeCityA = other.rangeCityA;
+        rangeHwy = other.rangeHwy;
+        rangeHwyA = other.rangeHwyA;
+        trany = other.trany;
+        UCity = other.UCity;
+        UCityA = other.UCityA;
+        UHighway = other.UHighway;
+        UHighwayA = other.UHighwayA;
+        VClass = other.VClass;
+        year = other.year;
+        youSaveSpend = other.youSaveSpend;
+        baseModel = other.baseModel;
+        guzzler = other.guzzler;
+        trans_dscr = other.trans_dscr;
+        tCharger = other.tCharger;
+        sCharger = other.sCharger;
+        atvType = other.atvType;
+        fuelType2 = other.fuelType2;
+        rangeA = other.rangeA;
+        evMotor = other.evMotor;
+        mfrCode = other.mfrCode;
+        c240Dscr = other.c240Dscr;
+        charge240b = other.charge240b;
+        c240bDscr = other.c240bDscr;
+        createdOn = other.createdOn;
+        modifiedOn = other.modifiedOn;
+        startStop = other.startStop;
+        phevCity = other.phevCity;
+        phevHwy = other.phevHwy;
+        phevComb = other.phevComb;
+
+        return *this;
+    }
+
+    void Print() {
+        string car_electric;
+        if(stoi(charge120) > 0 || stoi(charge240) > 0) {
+            car_electric = "electric";
         } else {
-            field += ch;
+            car_electric = "gas";
         }
 
-        ++pos;
+        cout << year + " " + make + " " + model + ", " + ", " << city08 << ", " << VClass << ", " << car_electric << ", " << drive << endl;
     }
-    fields.push_back(field); // Add the last field
-
-    return fields;
-}
-
-// https://stackoverflow.com/questions/1120140/how-can-i-read-and-parse-csv-files-in-c
-// Function to read and parse a CSV file
-vector< vector<string> > parse_CSV(const string& filename) {
-    vector<vector<string>> data;
-    ifstream file(filename);
-    string line;
-
-    if (!file.is_open()) {
-        cerr << "Error opening file: " << filename << endl;
-        return data;
-    }
-
-    // Read the header row
-    if (getline(file, line)) {
-        // Skip the header, assuming the first line is the header
-    }
-
-    // Read data rows
-    while (getline(file, line)) {
-        vector<string> fields;
-        size_t start = 0;
-        size_t pos = 0;
-        bool in_quote = false;
-
-        while (pos < line.length()) {
-            char ch = line[pos];
-
-            if (ch == '"') {
-                in_quote = !in_quote;
-            } else if (ch == ',' && !in_quote) {
-                fields.push_back(line.substr(start, pos - start));
-                start = pos + 1;
-            }
-
-            ++pos;
-        }
-
-        fields.push_back(line.substr(start)); // Add the last field
-        data.push_back(fields);
-    }
-
-    file.close();
-    return data;
-}
+};
 
 
-// taken from lecture slides linking to https://www.onlinegdb.com/HJT6FfMlv
-// Merge two subarrays from arr
-void merge(vector<Car> &arr, int left, int mid, int right) {
-    // Create X ← arr[left..mid] & Y ← arr[mid+1..right]
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-
-    vector<Car> X(n1), Y(n2);
-
-    for (int i = 0; i < n1; i++)
-        X[i] = arr[left + i];
-    for (int j = 0; j < n2; j++)
-        Y[j] = arr[mid + 1 + j];
-
-    // Merge the arrays X and Y into arr
-    int i, j, k;
-    i = 0;
-    j = 0;
-    k = left;
-    while (i < n1 && j < n2) {
-        if (stoi(X[i].comb08) <= stoi(Y[j].comb08)) {  // stoi bc everything is saved as strings
-            arr[k] = X[i];
-            i++;
-        } else {
-            arr[k] = Y[j];
-            j++;
-        }
-        k++;
-    }
-    // When we run out of elements in either X or Y append the remaining elements
-    while (i < n1) {
-        arr[k] = X[i];
-        i++;
-        k++;
-    }
-
-    while (j < n2) {
-        arr[k] = Y[j];
-        j++;
-        k++;
-    }
-}
-
-// taken from lecture slides linnking to https://www.onlinegdb.com/HJT6FfMlv
-// O(nlogn)
-void merge_sort(vector<Car> &arr, int left, int right) {
-    if (left < right) {
-        // m is the point where the array is divided into two subarrays
-        int mid = left + (right - left) / 2;
-
-        merge_sort(arr, left, mid);
-        merge_sort(arr, mid + 1, right);
-
-        // Merge the sorted subarrays
-        merge(arr, left, mid, right);
-    }
-}
-
-// https://www.geeksforgeeks.org/shellsort/ for help
-// https://www.programiz.com/dsa/shell-sort for help
-// Shell Sort function with Hibbard's sequence for gap selection
-// O(n^(3/2)) based on lecture slides
-void shell_sort(vector<Car>& cars) {
-    int n = cars.size();
-    int gap = 1;
-
-    // Generate Hibbard's sequence for gap selection
-    while (gap < n) {  // get the largest gap possible
-        gap = gap * 2 + 1;
-    }
-
-    while (gap > 0) {
-        for (int i = gap; i < n; ++i) {
-            Car temp = cars[i];
-            int j = i;
-            while (j >= gap && stoi(cars[j - gap].comb08) > stoi(temp.comb08)) {
-                cars[j] = cars[j - gap];
-                j -= gap;
-            }
-            cars[j] = temp;
-        }
-        gap = (gap - 1) / 2; // Move to the next gap in the sequence
-    }
-}
-
-// Function to set the pos of text, sets origin to center instead of top left
-void setText(sf::Text &text, float x, float y) {
-    sf::FloatRect textRect = text.getLocalBounds();
-    text.setOrigin(textRect.left + textRect.width / 2.0f,textRect.top + textRect.height / 2.0f);
-    text.setPosition(sf::Vector2f(x, y));
-}
-
-// change the alpha value of sprite to change its transperency
-void swap_transperency(int &alpha, sf::Sprite &sprite) {
-    if (alpha == 255) {
-        alpha = 0;
-    } else {
-        alpha = 255;
-    }
-    sprite.setColor(sf::Color(255, 255, 255, alpha));
-}
-
-int main() {
-    auto start = chrono::high_resolution_clock::now(); // start time
-    // vector to hold objects that represent the individual cars.
-    vector<Car> car_objects;
-    // vector to hold vector of car param read for csv
-    vector< vector<string> > car_param;
-
-    car_param = parse_CSV("vehicles.csv");
-
-    for( auto i : car_param ) {
-        string barrels08 = i[0];
-        string barrelsA08 = i[1];
-        string charge120 = i[2];
-        string charge240 = i[3];
-        string city08 = i[4];
-        string city08U = i[5];
-        string cityA08 = i[6];
-        string cityA08U = i[7];
-        string cityCD = i[8];
-        string cityE = i[9];
-        string cityUF = i[10];
-        string co2 = i[11];
-        string co2A = i[12];
-        string co2TailpipeAGpm = i[13];
-        string co2TailpipeGpm = i[14];
-        string comb08 = i[15];
-        string comb08U = i[16];
-        string combA08 = i[17];
-        string combA08U = i[18];
-        string combE = i[19];
-        string combinedCD = i[20];
-        string combinedUF = i[21];
-        string cylinders = i[22];
-        string displ = i[23];
-        string drive = i[24];
-        string engId = i[25];
-        string eng_dscr = i[26];
-        string feScore = i[27];
-        string fuelCost08 = i[28];
-        string fuelCostA08 = i[29];
-        string fuelType = i[30];
-        string fuelType1 = i[31];
-        string ghgScore = i[32];
-        string ghgScoreA = i[33];
-        string highway08 = i[34];
-        string highway08U = i[35];
-        string highwayA08 = i[36];
-        string highwayA08U = i[37];
-        string highwayCD = i[38];
-        string highwayE = i[39];
-        string highwayUF = i[40];
-        string hlv = i[41];
-        string hpv = i[42];
-        string id = i[43];
-        string lv2 = i[44];
-        string lv4 = i[45];
-        string make = i[46];
-        string model = i[47];
-        string mpgData = i[48];
-        string phevBlended = i[49];
-        string pv2 = i[50];
-        string pv4 = i[51];
-        string range = i[52];
-        string rangeCity = i[53];
-        string rangeCityA = i[54];
-        string rangeHwy = i[55];
-        string rangeHwyA = i[56];
-        string trany = i[57];
-        string UCity = i[58];
-        string UCityA = i[59];
-        string UHighway = i[60];
-        string UHighwayA = i[61];
-        string VClass = i[62];
-        string year = i[63];
-        string youSaveSpend = i[64];
-        string baseModel = i[65];
-        string guzzler = i[66];
-        string trans_dscr = i[67];
-        string tCharger = i[68];
-        string sCharger = i[69];
-        string atvType = i[70];
-        string fuelType2 = i[71];
-        string rangeA = i[72];
-        string evMotor = i[73];
-        string mfrCode = i[74];
-        string c240Dscr = i[75];
-        string charge240b = i[76];
-        string c240bDscr = i[77];
-        string createdOn = i[78];
-        string modifiedOn = i[79];
-        string startStop = i[80];
-        string phevCity = i[81];
-        string phevHwy = i[82];
-        string phevComb = i[83];
-
-        Car temp_car(barrels08,barrelsA08,charge120,charge240,city08,city08U,cityA08,cityA08U,cityCD,cityE,cityUF,co2,co2A,co2TailpipeAGpm,co2TailpipeGpm,comb08,comb08U,combA08,combA08U,combE,combinedCD,combinedUF,cylinders,displ,drive,engId,eng_dscr,feScore,fuelCost08,fuelCostA08,fuelType,fuelType1,ghgScore,ghgScoreA,highway08,highway08U,highwayA08,highwayA08U,highwayCD,highwayE,highwayUF,hlv,hpv,id,lv2,lv4,make,model,mpgData,phevBlended,pv2,pv4,range,rangeCity,rangeCityA,rangeHwy,rangeHwyA,trany,UCity,UCityA,UHighway,UHighwayA,VClass,year,youSaveSpend,baseModel,guzzler,trans_dscr,tCharger,sCharger,atvType,fuelType2,rangeA,evMotor,mfrCode,c240Dscr,charge240b,c240bDscr,createdOn,modifiedOn,startStop,phevCity,phevHwy,phevComb);
-
-        car_objects.push_back(temp_car);
-    }
-
-
-    // comment out when testing shell sort
-    // merge_sort(car_objects, 0, car_objects.size()-1);  // 3.08, 2.962, 2.989, 2.966, 3.029
-
-    // comment out when testing merge sort
-    // shell_sort(car_objects); // 2.307, 2.209, 2.151, 2.223, 2.178
-
-    set<string> types; // diff types of cars
-    // Vans, Minicompact Cars, Compact Cars, Subcompact Cars, Midsize Cars, Large Cars, Station Wagons, Minivan,
-    // Pickup Trucks, Sport Utility Vehicle, Two Seaters
-    for(auto car : car_objects) {  // populate vehicle types
-        types.insert(car.VClass);
-    }
-
-    set<int> mpgs; // diff mpgs of cars
-    for(auto car : car_objects) {
-        mpgs.insert(stoi(car.comb08));
-    }
-
-    set<string> drive_type; // diff drives of cars
-    // 2-Wheel Drive, 4-Wheel Drive, 4-Wheel-Drive or All-Wheel Drive, All-Wheel Drive, Front-Wheel Drive,
-    // Part-time 4-Wheel Drive, Rear-Wheel Drive
-    for(auto car : car_objects) {
-        drive_type.insert(car.drive);
-    }
-
-
-    vector<string> acceptable_types = {"Vans", "Compact Cars", "Midsize Cars", "Large Cars", "Station Wagons", "Minivan", "Pickup Trucks", "Sport Utility Vehicle", "Two Seaters"};
-    vector<string> acceptable_drives = {"2-Wheel Drive", "4-Wheel Drive", "All-Wheel Drive", "Front-Wheel Drive", "Rear-Wheel Drive"};
-
-    // //////////////////////////////////// SFML /////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    float WIDTH = 390;
-    float HEIGHT = 750;
-
-    sf::Font font;
-    if (!font.loadFromFile("files/Arial.ttf")) {
-        return 1;
-    }
-
-    // Create the window
-    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CaRinge");
-
-
-    // create background png for preference page
-    sf::Texture pref_texture;
-    pref_texture.loadFromFile("files/caringe_pref_page.png");
-    sf::Sprite pref_page;
-    pref_page.setTexture(pref_texture);
-
-    // create texture for checkbox
-    sf::Texture checked_box_texture;
-    checked_box_texture.loadFromFile("files/caringe_checked_box.png");
-    // create all check box sprites
-    sf::Sprite vans_checked_box;
-    sf::Sprite compact_checked_box;
-    sf::Sprite midsize_checked_box;
-    sf::Sprite large_checked_box;
-    sf::Sprite stationwagon_checked_box;
-    sf::Sprite minivan_checked_box;
-    sf::Sprite pickup_checked_box;
-    sf::Sprite suv_checked_box;
-    sf::Sprite twoseater_checked_box;
-    sf::Sprite twowheel_checked_box;
-    sf::Sprite fourwheel_checked_box;
-    sf::Sprite allwheel_checked_box;
-    sf::Sprite frontwheel_checked_box;
-    sf::Sprite rearwheel_checked_box;
-    sf::Sprite electric_checked_box;
-    // set all checkbox textures
-    vans_checked_box.setTexture(checked_box_texture);
-    compact_checked_box.setTexture(checked_box_texture);
-    midsize_checked_box.setTexture(checked_box_texture);
-    large_checked_box.setTexture(checked_box_texture);
-    stationwagon_checked_box.setTexture(checked_box_texture);
-    minivan_checked_box.setTexture(checked_box_texture);
-    pickup_checked_box.setTexture(checked_box_texture);
-    suv_checked_box.setTexture(checked_box_texture);
-    twoseater_checked_box.setTexture(checked_box_texture);
-    twowheel_checked_box.setTexture(checked_box_texture);
-    fourwheel_checked_box.setTexture(checked_box_texture);
-    allwheel_checked_box.setTexture(checked_box_texture);
-    frontwheel_checked_box.setTexture(checked_box_texture);
-    rearwheel_checked_box.setTexture(checked_box_texture);
-    electric_checked_box.setTexture(checked_box_texture);
-    // set position for all boxes
-    vans_checked_box.setPosition(353.8, 131.4);
-    compact_checked_box.setPosition(353.8, 156.5);
-    midsize_checked_box.setPosition(353.8, 181.6);
-    large_checked_box.setPosition(353.8, 206.7);
-    stationwagon_checked_box.setPosition(353.8, 231.8);
-    minivan_checked_box.setPosition(353.8, 259.6);
-    pickup_checked_box.setPosition(353.8, 282);
-    suv_checked_box.setPosition(353.8, 307.1);
-    twoseater_checked_box.setPosition(353.8, 332.3);
-    twowheel_checked_box.setPosition(353.8, 402.9);
-    fourwheel_checked_box.setPosition(353.8, 428);
-    allwheel_checked_box.setPosition(353.8, 453.1);
-    frontwheel_checked_box.setPosition(353.8, 478.2);
-    rearwheel_checked_box.setPosition(353.8, 503.2);
-    electric_checked_box.setPosition(353.8, 629.5);
-    // set transperenceis of check boxes to zero so theyre hidden by defaul
-    int vans_transperency = 0;
-    vans_checked_box.setColor(sf::Color(255, 255, 255 ,vans_transperency));
-    int compact_transperency = 0;
-    compact_checked_box.setColor(sf::Color(255, 255, 255 ,compact_transperency));
-    int mid_transperency = 0;
-    midsize_checked_box.setColor(sf::Color(255, 255, 255 ,mid_transperency));
-    int large_transperency = 0;
-    large_checked_box.setColor(sf::Color(255, 255, 255 ,large_transperency));
-    int stationwagon_transperency = 0;
-    stationwagon_checked_box.setColor(sf::Color(255, 255, 255 ,stationwagon_transperency));
-    int minivan_transperency = 0;
-    minivan_checked_box.setColor(sf::Color(255, 255, 255 ,minivan_transperency));
-    int pickup_transperency = 0;
-    pickup_checked_box.setColor(sf::Color(255, 255, 255 ,pickup_transperency));
-    int suv_transperency = 0;
-    suv_checked_box.setColor(sf::Color(255, 255, 255 ,suv_transperency));
-    int twoseat_transperency = 0;
-    twoseater_checked_box.setColor(sf::Color(255, 255, 255 ,twoseat_transperency));
-    int twowheel_transperency = 0;
-    twowheel_checked_box.setColor(sf::Color(255, 255, 255 ,twowheel_transperency));
-    int fourwheel_transperency = 0;
-    fourwheel_checked_box.setColor(sf::Color(255, 255, 255 ,fourwheel_transperency));
-    int allwheel_transperency = 0;
-    allwheel_checked_box.setColor(sf::Color(255, 255, 255 ,allwheel_transperency));
-    int frontwheel_transperency = 0;
-    frontwheel_checked_box.setColor(sf::Color(255, 255, 255 ,frontwheel_transperency));
-    int rearwheel_transperency = 0;
-    rearwheel_checked_box.setColor(sf::Color(255, 255, 255 ,rearwheel_transperency));
-    int electric_transperency = 0;
-    electric_checked_box.setColor(sf::Color(255, 255, 255 ,electric_transperency));
-
-    // text value for slider
-    int max_mpg = *mpgs.rbegin();
-    string user_mpg = "0";  // max value is going to be 111
-    sf::Text mpg_text(user_mpg, font, 12);
-    mpg_text.setPosition(19, 568);
-    mpg_text.setColor(sf::Color(0, 0, 0 ,255));
-    // slider circle for mpg
-    sf::CircleShape slider(6.f);
-    slider.setFillColor(sf::Color(113, 63, 108 ,255));
-    slider.setPosition(17, 583);
-
-    bool dragging = false;
-
-    // Main loop
-    while (window.isOpen())
-    {
-        // Process events
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-
-            if (event.type == sf::Event::MouseButtonPressed) {
-                int x = event.mouseButton.x;
-                int y = event.mouseButton.y;
-                if (event.mouseButton.button == sf::Mouse::Right) {
-                    cout << "right: " << x << ", " << y << endl;
-                }
-                if (event.mouseButton.button == sf::Mouse::Left) {  // if left click
-
-                    cout << "left: " << x << ", " << y << endl;
-                    // If within button area, do stuff
-                    if ( (x <= 361) && (x >= 17) && (y <= 583+12) && (y >= 583)) {
-                        dragging = !dragging;
-                    }
-
-                    // if in check box area, change transperency
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 131.4+19) && (y >= 131.4)) {
-                        swap_transperency(vans_transperency, vans_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 156.5+19) && (y >= 156.5)) {
-                        swap_transperency(compact_transperency, compact_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 181.6+19) && (y >= 181.6)) {
-                        swap_transperency(mid_transperency, midsize_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 206.7+19) && (y >= 206.7)) {
-                        swap_transperency(large_transperency, large_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 236.8+19) && (y >= 236.8)) {
-                        swap_transperency(stationwagon_transperency, stationwagon_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 259.6+19) && (y >= 259.6)) {
-                        swap_transperency(minivan_transperency, minivan_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 282+19) && (y >= 282)) {
-                        swap_transperency(pickup_transperency, pickup_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 307.1+19) && (y >= 307.1)) {
-                        swap_transperency(suv_transperency, suv_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 332.2+19) && (y >= 332.2)) {
-                        swap_transperency(twoseat_transperency, twoseater_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 402.9+19) && (y >= 402.9)) {
-                        swap_transperency(twowheel_transperency, twowheel_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 428+19) && (y >= 428)) {
-                        swap_transperency(fourwheel_transperency, fourwheel_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 453.1+19) && (y >= 453.1)) {
-                        swap_transperency(allwheel_transperency, allwheel_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 478.2+19) && (y >= 478.2)) {
-                        swap_transperency(frontwheel_transperency, frontwheel_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 503.3+19) && (y >= 503.3)) {
-                        swap_transperency(rearwheel_transperency, rearwheel_checked_box);
-                    }
-                    if ( (x <= 353.8+19) && (x >= 353.8) && (y <= 629.5+19) && (y >= 629.5)) {
-                        swap_transperency(electric_transperency, electric_checked_box);
-                    }
-                }
-            }
-
-            // dynamically move the slider
-            if (event.type == sf::Event::MouseMoved) {
-                if (dragging) {
-                    // if within slider area, move
-                    int xmove = event.mouseMove.x;
-                    int ymove = event.mouseMove.y;
-                    if ( (xmove <= 367) && (xmove >= 23) && (ymove <= 613) && (ymove >= 563)) {
-                        slider.setPosition(xmove - 6, 583);
-                        mpg_text.setPosition(xmove - 4, 568);
-
-                        user_mpg = to_string(max_mpg * (xmove-23) / (367-23));
-                        mpg_text.setString(user_mpg);
-                    } else {
-                        dragging = false;
-                    }
-                }
-            }
-        }
-
-        // Clear the screen
-        window.clear();
-
-
-
-        // Draw //
-        // draw background
-        window.draw(pref_page);
-        // draw checkboxes
-        window.draw(vans_checked_box);
-        window.draw(compact_checked_box);
-        window.draw(midsize_checked_box);
-        window.draw(large_checked_box);
-        window.draw(stationwagon_checked_box);
-        window.draw(minivan_checked_box);
-        window.draw(pickup_checked_box);
-        window.draw(suv_checked_box);
-        window.draw(twoseater_checked_box);
-        window.draw(twowheel_checked_box);
-        window.draw(fourwheel_checked_box);
-        window.draw(allwheel_checked_box);
-        window.draw(frontwheel_checked_box);
-        window.draw(rearwheel_checked_box);
-        window.draw(electric_checked_box);
-        // draw slider
-        window.draw(slider);
-        window.draw(mpg_text);
-
-
-        // Display the window
-        window.display();
-    }
-
-    // end time
-    auto stop = chrono::high_resolution_clock::now();
-    auto duration = duration_cast<chrono::milliseconds>(stop - start);
-    // To get the value of duration use the count() member function on the duration object
-    cout << "It took " << duration.count() / 1000.0f << " seconds" << endl;
-    return 0;
-}
-
-main.cpp
-Displaying main.cpp.
+#endif //CARINGE_CAR_H
