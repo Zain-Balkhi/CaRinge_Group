@@ -1,4 +1,4 @@
-# Install script for directory: /Users/sameenimtiaz/Desktop/CaRinge
+# Install script for directory: /Users/sameenimtiaz/Desktop/CaRinge_Group
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/sameenimtiaz/Desktop/CaRinge/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/sameenimtiaz/Desktop/CaRinge_Group/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
