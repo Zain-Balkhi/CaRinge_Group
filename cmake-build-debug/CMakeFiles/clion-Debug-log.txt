@@ -1,4 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/sameenimtiaz/Desktop/CaRinge_Group -B /Users/sameenimtiaz/Desktop/CaRinge_Group/cmake-build-debug
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /Users/jehanperalta/Documents/GitHub/CaRinge_Group -B /Users/jehanperalta/Documents/GitHub/CaRinge_Group/cmake-build-debug
 -- The C compiler identification is AppleClang 14.0.3.14030022
 -- The CXX compiler identification is AppleClang 14.0.3.14030022
 -- Detecting C compiler ABI info
@@ -11,7 +11,16 @@
 -- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Found SFML 2.6.0 in /opt/homebrew/lib/cmake/SFML
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/sameenimtiaz/Desktop/CaRinge_Group/cmake-build-debug
+CMake Error at CMakeLists.txt:10 (find_package):
+  Could not find a configuration file for package "SFML" that is compatible
+  with requested version "2.6".
+
+  The following configuration files were considered but not accepted:
+
+    /opt/homebrew/lib/cmake/SFML/SFMLConfig.cmake, version: 2.5.1
+
+
+
+-- Configuring incomplete, errors occurred!
+See also "/Users/jehanperalta/Documents/GitHub/CaRinge_Group/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/Users/jehanperalta/Documents/GitHub/CaRinge_Group/cmake-build-debug/CMakeFiles/CMakeError.log".
